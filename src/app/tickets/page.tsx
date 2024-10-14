@@ -14,12 +14,14 @@ export default function TicketsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Tickets</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Gestion des Tickets</h1>
       <TicketForm onTicketAdded={handleTicketAdded} />
       <TicketList key={refreshKey} />
-      <Link href="/" className="mt-4 inline-block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-        Retour à l&apos;accueil
-      </Link>
+      <div className="mt-8 text-center">
+        <Link href="/" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+          Retour à l&apos;accueil
+        </Link>
+      </div>
     </div>
   );
 }

@@ -5,43 +5,69 @@ import { useState } from 'react';
 export default function TicketForm({ onTicketAdded }: { onTicketAdded: () => void }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/tickets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, description, status: 'ouvert' }),
-    });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/tickets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description, status: 'ouvert' }),
+      });
 
-    if (response.ok) {
-      setTitle('');
-      setDescription('');
-      onTicketAdded();
+      if (response.ok) {
+        setTitle('');
+        setDescription('');
+        onTicketAdded();
+      }
+    } catch (error) {
+      console.error('Error adding ticket:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Titre du ticket"
-        className="w-full p-2 mb-2 border rounded"
-        required
-      />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description du ticket"
-        className="w-full p-2 mb-2 border rounded"
-        required
-      />
-      <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-        Ajouter un ticket
+    <form onSubmit={handleSubmit} className="mb-8 bg-white shadow-md rounded-lg p-6">
+      <h2 className="text-2xl font-bold mb-4">Ajouter un nouveau ticket</h2>
+      <div className="mb-4">
+        <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
+          Titre
+        </label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Titre du ticket"
+          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+          Description
+        </label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description du ticket"
+          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows={4}
+          required
+        />
+      </div>
+      <button 
+        type="submit" 
+        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Ajout en cours...' : 'Ajouter un ticket'}
       </button>
     </form>
   );
