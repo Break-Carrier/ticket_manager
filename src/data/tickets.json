@@ -20,7 +20,7 @@
   {
     "title": "un ticket de test",
     "description": "il y a un probleme avec mon pc",
-    "status": "ouvert",
+    "status": "fermé",
     "id": 4
   }
 ]
