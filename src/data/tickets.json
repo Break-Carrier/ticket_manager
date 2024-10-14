@@ -10,5 +10,11 @@
     "title": "Erreur 404 sur la page d'accueil",
     "description": "Les utilisateurs obtiennent une erreur 404 en accédant à la page d'accueil",
     "status": "en cours"
+  },
+  {
+    "title": "ticket ",
+    "description": "salut",
+    "status": "ouvert",
+    "id": 3
   }
 ]
