@@ -32,8 +32,8 @@ export default function TicketForm({ onTicketAdded }: { onTicketAdded: () => voi
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-8 bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-bold mb-4">Ajouter un nouveau ticket</h2>
+    <form onSubmit={handleSubmit} className="mb-8 bg-gray-100 shadow-md rounded-lg p-6">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Ajouter un nouveau ticket</h2>
       <div className="mb-4">
         <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
           Titre
@@ -44,7 +44,7 @@ export default function TicketForm({ onTicketAdded }: { onTicketAdded: () => voi
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Titre du ticket"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
           required
         />
       </div>
@@ -57,14 +57,14 @@ export default function TicketForm({ onTicketAdded }: { onTicketAdded: () => voi
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description du ticket"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
           rows={4}
           required
         />
       </div>
       <button 
         type="submit" 
-        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out w-full"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out w-full"
         disabled={isSubmitting}
       >
         {isSubmitting ? 'Ajout en cours...' : 'Ajouter un ticket'}
