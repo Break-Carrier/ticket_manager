@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Problème de connexion",
     "description": "Les utilisateurs ne peuvent pas se connecter à l'application",
-    "status": "ouvert"
+    "status": "en cours"
   },
   {
     "id": 2,
@@ -16,5 +16,11 @@
     "description": "salut",
     "status": "ouvert",
     "id": 3
+  },
+  {
+    "title": "un ticket de test",
+    "description": "il y a un probleme avec mon pc",
+    "status": "ouvert",
+    "id": 4
   }
 ]

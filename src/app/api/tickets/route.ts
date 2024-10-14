@@ -13,8 +13,17 @@ async function saveTickets(tickets: any[]) {
   await fs.writeFile(ticketsPath, JSON.stringify(tickets, null, 2));
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+
   const tickets = await getTickets();
+
+  if (id) {
+    const ticket = tickets.find((t: any) => t.id === parseInt(id));
+    return ticket ? NextResponse.json(ticket) : NextResponse.json({ error: 'Ticket not found' }, { status: 404 });
+  }
+
   return NextResponse.json(tickets);
 }
 
@@ -25,6 +34,25 @@ export async function POST(request: Request) {
   tickets.push(newTicket);
   await saveTickets(tickets);
   return NextResponse.json(newTicket, { status: 201 });
+}
+
+export async function PATCH(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  if (!id) {
+    return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+  }
+
+  const tickets = await getTickets();
+  const ticketIndex = tickets.findIndex((t: any) => t.id === parseInt(id));
+  if (ticketIndex === -1) {
+    return NextResponse.json({ error: 'Ticket not found' }, { status: 404 });
+  }
+
+  const updatedTicket = await request.json();
+  tickets[ticketIndex] = { ...tickets[ticketIndex], ...updatedTicket };
+  await saveTickets(tickets);
+  return NextResponse.json(tickets[ticketIndex]);
 }
 
 export async function DELETE(request: Request) {

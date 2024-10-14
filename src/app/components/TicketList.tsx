@@ -3,8 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+interface Ticket {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+}
+
 export default function TicketList() {
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
   const fetchTickets = async () => {
     const response = await fetch("/api/tickets");
@@ -38,7 +45,7 @@ export default function TicketList() {
     <div>
       <h2 className="text-2xl font-bold mb-4">Liste des Tickets</h2>
       <ul className="space-y-4">
-        {tickets.map((ticket: any) => (
+        {tickets.map((ticket: Ticket) => (
           <li
             key={ticket.id}
             className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center hover:shadow-lg transition duration-300"
